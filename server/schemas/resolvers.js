@@ -3,45 +3,42 @@ const { User, Book } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
-  Query: {
-    me: async (parent, args, context) => {
-      if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id })
-          .select('-__v -password')
-          .populate('thoughts')
-          .populate('friends');
-
-        return userData;
-      }
-
-      throw new AuthenticationError('Not logged in');
-    }
-  },
-
-  Mutation: {
-    addUser: async (parent, args) => {
-      const user = await User.create(args);
-      const token = signToken(user);
-
-      return { token, user };
+    Query: {
+        me: async (parent, args, context) => {
+            if (context.user) {
+                const userData = await User.findOne({ _id: context.user._id })
+                    .select('-__v -password')
+                return userData;
+            }
+            throw new AuthenticationError('Not logged in');
+        },
+        users
     },
-    login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
 
-      if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
-      }
+    Mutation: {
+        addUser: async (parent, args) => {
+            const user = await User.create(args);
+            const token = signToken(user);
 
-      const correctPw = await user.isCorrectPassword(password);
+            return { token, user };
+        },
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
 
-      if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
-      }
+            if (!user) {
+                throw new AuthenticationError('Incorrect credentials');
+            }
 
-      const token = signToken(user);
-      return { token, user };
+            const correctPw = await user.isCorrectPassword(password);
+
+            if (!correctPw) {
+                throw new AuthenticationError('Incorrect credentials');
+            }
+
+            const token = signToken(user);
+            return { token, user };
+        }
     }
-  }
 };
 
 module.exports = resolvers;
