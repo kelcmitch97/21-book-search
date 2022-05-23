@@ -14,19 +14,17 @@ This application allows users to serach for books using a Google Books API searc
 
 ## Sneak Peak
 
-The following snapspot is a look into what the application looks like with a couple transactions.
+The following snapspot is a look into what the application looks like. 
 
-![Tutorial](./assets/images/tutorial.png)
-
-
+![Tutorial](./assets/images/sneakpeek.png)
 
 ## Deployment
 
 This application is deployed to Heroku. 
 
-https://budget-tracker-kelcie.herokuapp.com/
+https://google-search-kelcie.herokuapp.com/
 
-To see the Github page for this application, click [here](https://github.com/kelcmitch97/19-budget-tracker):
+To see the Github page for this application, click [here](https://github.com/kelcmitch97/21-book-search):
 
 ## Questions
 
